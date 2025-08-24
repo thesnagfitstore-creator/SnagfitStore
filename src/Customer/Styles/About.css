@@ -1,0 +1,156 @@
+/* General Background */
+.about-bg {
+    background: #f7f3e3;
+    min-height: 100vh;
+    padding: 80px 20px;
+    font-family: "Poppins", sans-serif;
+}
+
+.about-centered {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Section cards */
+.brand-mission,
+.brand-values,
+.why-choose,
+.team-section,
+.about-cta {
+    background: #fff;
+    padding: 30px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* Headings */
+.brand-mission h2,
+.brand-values h2,
+.why-choose h2,
+.team-section h2,
+.about-cta h4 {
+    color: #4a2b2b;
+    font-weight: bold;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.brand-mission h2 i,
+.brand-values h2 i,
+.why-choose h2 i,
+.team-section h2 i {
+    color: #d32f2f;
+    margin-right: 8px;
+}
+
+/* Core values list */
+.brand-values ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.brand-values li {
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.brand-values li i {
+    color: #e63946;
+    margin-right: 6px;
+}
+
+/* Why Shop With Us */
+.why-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.icon-box {
+    text-align: center;
+}
+
+.icon-box i {
+    font-size: 40px;
+    color: #d32f2f;
+    margin-bottom: 10px;
+}
+
+.icon-box .fw-bold {
+    font-size: 15px;
+    font-weight: 700;
+    color: #2c2c2c;
+}
+
+.icon-box p {
+    font-size: 14px;
+    color: #555;
+    margin-top: 5px;
+}
+
+/* Team Section */
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+    justify-items: center;
+}
+
+.team-member {
+    text-align: center;
+}
+
+.team-member img {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 12px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.team-member h6 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #2c2c2c;
+    margin-bottom: 5px;
+}
+
+.team-member span {
+    font-size: 13px;
+    color: #555;
+}
+
+/* Call To Action */
+.about-cta {
+    text-align: center;
+}
+
+.about-cta h4 {
+    margin-bottom: 12px;
+}
+
+.about-cta p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.about-cta .btn {
+    background: #b22222;
+    color: #fff;
+    border-radius: 25px;
+    padding: 10px 25px;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.about-cta .btn:hover {
+    background: #8b1a1a;
+}

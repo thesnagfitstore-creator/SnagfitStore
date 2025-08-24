@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Navbar from "./Customer/Components/Navigation/Navbar";
+import Footer from "./Customer/Components/Footer/Footer";
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import { Routes, Route } from "react-router-dom";
+import Home from "./Customer/Pages/Home";
+import About from "./Customer/Pages/About";
+import Mens from "./Customer/Pages/Mens";
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        {/* Mens page */}
+        <Route path="/mens" element={<Mens />} />
+      </Routes>
+      <Footer />
+    </>
   );
 }
-
-export default App;
