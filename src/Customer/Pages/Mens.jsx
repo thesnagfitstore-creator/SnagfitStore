@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { FaHeart } from "react-icons/fa";
 import Navbar from "../Components/Navigation/Navbar";
+import Toast from "../Components/Toaster/Toast";
 import "../Styles/Mens.css";
+import "../Styles/WishlistIcon.css"
 import product from "../../Data/product";
 
 const Mens = () => {
@@ -62,9 +65,42 @@ const Mens = () => {
     const indexOfFirst = indexOfLast - itemsPerPage;
     const currentProducts = filteredProducts.slice(indexOfFirst, indexOfLast);
 
+    // ✅ Wishlist Logic
+    const [wishlist, setWishlist] = useState([]);
+    const [toast, setToast] = useState(null);
+
+    useEffect(() => {
+        const storedWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+        setWishlist(storedWishlist);
+    }, []);
+
+    const toggleWishlist = (item) => {
+        let updatedWishlist;
+
+        if (wishlist.some((p) => p.id === item.id)) {
+            // Remove if already in wishlist
+            updatedWishlist = wishlist.filter((p) => p.id !== item.id);
+            setToast({ message: "Removed from Wishlist 💔", type: "error" });
+        } else {
+            // Add to wishlist
+            updatedWishlist = [...wishlist, item];
+            setToast({ message: "Added to Wishlist ❤️", type: "success" });
+        }
+
+        setWishlist(updatedWishlist);
+        localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+    };
+
     return (
         <>
             <Navbar />
+            {toast && (
+                <Toast
+                    message={toast.message}
+                    type={toast.type}
+                    onClose={() => setToast(null)}
+                />
+            )}
 
             {/* Hero */}
             <section id="page-header">
@@ -169,9 +205,7 @@ const Mens = () => {
                         </div>
 
                         {/* Availability */}
-                        <div
-                            className={`filter-section ${openSections.availability ? "open" : ""}`}
-                        >
+                        <div className={`filter-section ${openSections.availability ? "open" : ""}`}>
                             <h5 onClick={() => toggleSection("availability")}>
                                 Availability <span>{openSections.availability ? "−" : "+"}</span>
                             </h5>
@@ -226,9 +260,19 @@ const Mens = () => {
                                     </h5>
                                     <h4>${product.price}</h4>
                                 </div>
-                                <button className="cart-btn">
-                                    <i className="fas fa-shopping-cart"></i>
-                                </button>
+
+                                {/* Cart + Wishlist Buttons */}
+                                <div className="card-actions">
+                                    <button className="cart-btn">
+                                        <i className="fas fa-shopping-cart"></i>
+                                    </button>
+                                    <button
+                                        className={`wishlist-btn ${wishlist.some((p) => p.id === product.id) ? "active" : ""}`}
+                                        onClick={() => toggleWishlist(product)}
+                                    >
+                                        <FaHeart />
+                                    </button>
+                                </div>
                             </div>
                         ))}
                     </div>

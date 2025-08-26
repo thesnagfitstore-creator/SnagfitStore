@@ -10,6 +10,7 @@ import Mens from "./Customer/Pages/Mens";
 import Womens from "./Customer/Pages/Womens";
 import Unisex from "./Customer/Pages/Unisex";
 import ContactUS from "./Customer/Pages/Contactus";
+import Wishlist from "./Customer/Pages/Wishlist";
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
         <Route path="/womens" element={<Womens />} />
         <Route path="/unisex" element={<Unisex />} />
         <Route path="/contact" element={<ContactUS />} />
+        <Route path="/wishlist" element={<Wishlist />} />
       </Routes>
       <Footer />
     </>

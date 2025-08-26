@@ -1,0 +1,35 @@
+/* Wishlist Icon Button */
+.wishlist-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    transition: transform 0.2s ease, color 0.3s ease;
+    color: var(--black);
+}
+
+.wishlist-btn:hover {
+    transform: scale(1.2);
+}
+
+/* When active */
+.wishlist-btn.active {
+    color: var(--red);
+    text-shadow: 0 0 10px rgba(255, 49, 49, 0.6);
+}
+
+/* Make product card relative so button positions correctly */
+.product-card {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Optional hover glow on product card */
+.product-card:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-4px);
+    transition: all 0.3s ease;
+}
