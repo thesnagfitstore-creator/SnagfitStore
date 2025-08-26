@@ -6,6 +6,8 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./Customer/Pages/Home";
 import About from "./Customer/Pages/About";
 import Mens from "./Customer/Pages/Mens";
+import Womens from "./Customer/Pages/Womens";
+import Unisex from "./Customer/Pages/Unisex";
 
 export default function App() {
   return (
@@ -16,6 +18,9 @@ export default function App() {
         <Route path="/about" element={<About />} />
         {/* Mens page */}
         <Route path="/mens" element={<Mens />} />
+        <Route path="/womens" element={<Womens />} />
+        <Route path="/unisex" element={<Unisex />} />
+
       </Routes>
       <Footer />
     </>
