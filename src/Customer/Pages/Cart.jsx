@@ -1,5 +1,6 @@
 // src/Customer/Pages/Cart.jsx
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../Components/Navigation/Navbar";
 import { useCart } from "../Context/CartContext";
 import Toast from "../Components/Toaster/Toast";
@@ -8,6 +9,7 @@ import "../Styles/Cart.css";
 const Cart = () => {
     const { cart, removeFromCart, updateQty, clearCart } = useCart();
     const [toast, setToast] = useState(null);
+    const navigate = useNavigate();
 
     const subtotal = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
 
@@ -33,16 +35,26 @@ const Cart = () => {
     };
 
     // ✅ Shipping & Tax logic
-    const shipping = subtotal >= 500 ? 0 : (subtotal > 0 ? 50 : 0); // Free shipping above $500
-    const tax = subtotal * 0.1; // 10% tax
+    const shipping = subtotal >= 500 ? 0 : (subtotal > 0 ? 50 : 0);
+    const tax = subtotal * 0.1;
     const grandTotal = subtotal + shipping + tax - discount;
+
+    // ✅ Delivery Date (3–5 days from today)
+    const today = new Date();
+    const minDelivery = new Date(today);
+    minDelivery.setDate(today.getDate() + 3);
+    const maxDelivery = new Date(today);
+    maxDelivery.setDate(today.getDate() + 5);
+
+    const formatDate = (date) =>
+        date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
 
     // ✅ Toast helper
     const showToast = (type, message) => {
         setToast({ type, message });
     };
 
-    // ✅ Move to Wishlist using localStorage
+    // ✅ Move to Wishlist
     const moveToWishlist = (item) => {
         try {
             const storedWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
@@ -54,8 +66,7 @@ const Cart = () => {
             } else {
                 showToast("warning", "⚠️ Already in Wishlist");
             }
-
-            removeFromCart(item.id); // ✅ remove from cart after moving
+            removeFromCart(item.id);
         } catch (error) {
             showToast("error", "❌ Something went wrong");
         }
@@ -77,7 +88,7 @@ const Cart = () => {
                     <p className="empty-cart">Your cart is empty 🛒</p>
                 ) : (
                     <div className="cart-container">
-                        {/* ✅ Left side: Cart Items */}
+                        {/* ✅ Cart Items */}
                         <div className="cart-items">
                             {cart.map((item) => (
                                 <div className="cart-card" key={item.id}>
@@ -112,26 +123,21 @@ const Cart = () => {
                             ))}
                         </div>
 
-                        {/* ✅ Right side: Order Summary */}
+                        {/* ✅ Order Summary */}
                         <div className="cart-summary">
                             <h3>Order Summary</h3>
                             <p>Subtotal: <strong>${subtotal.toFixed(2)}</strong></p>
-                            <p>
-                                Shipping:{" "}
-                                <strong>
-                                    {shipping === 0 ? "FREE 🚚" : `$${shipping.toFixed(2)}`}
-                                </strong>
-                            </p>
+                            <p>Shipping: <strong>{shipping === 0 ? "FREE 🚚" : `$${shipping.toFixed(2)}`}</strong></p>
                             <p>Tax (10%): <strong>${tax.toFixed(2)}</strong></p>
-                            {discount > 0 && (
-                                <p className="discount-text">Discount: -${discount.toFixed(2)}</p>
-                            )}
+                            {discount > 0 && <p className="discount-text">Discount: -${discount.toFixed(2)}</p>}
                             <hr />
-                            <p className="grand-total">
-                                Grand Total: <strong>${grandTotal.toFixed(2)}</strong>
+                            <p className="grand-total">Grand Total: <strong>${grandTotal.toFixed(2)}</strong></p>
+                            <p className="delivery-date">
+                                Estimated Delivery:{" "}
+                                <strong>{formatDate(minDelivery)} - {formatDate(maxDelivery)}</strong>
                             </p>
 
-                            {/* ✅ Coupon Input */}
+                            {/* ✅ Coupon Box */}
                             <div className="coupon-box">
                                 <input
                                     type="text"
@@ -144,21 +150,18 @@ const Cart = () => {
                             {message && <p className="coupon-msg">{message}</p>}
 
                             {/* ✅ Buttons */}
-                            <button className="clearcart-btn" onClick={handleClearCart}>
-                                🗑️ Clear Cart
-                            </button>
+                            <button className="clearcart-btn" onClick={handleClearCart}>🗑️ Clear Cart</button>
                             <button className="checkout-btn">Proceed to Checkout</button>
+                            <button className="continue-btn" onClick={() => navigate("/mens")}>
+                                ⬅️ Continue Shopping
+                            </button>
                         </div>
                     </div>
                 )}
 
-                {/* ✅ Toast notification */}
+                {/* ✅ Toast */}
                 {toast && (
-                    <Toast
-                        type={toast.type}
-                        message={toast.message}
-                        onClose={() => setToast(null)}
-                    />
+                    <Toast type={toast.type} message={toast.message} onClose={() => setToast(null)} />
                 )}
             </section>
         </>

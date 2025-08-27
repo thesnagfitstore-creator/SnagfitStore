@@ -238,6 +238,25 @@
     font-weight: bold;
 }
 
+/* Continue Shopping Button */
+.continue-btn {
+    background: var(--cream);
+    color: var(--dark-red);
+    border: 2px solid var(--dark-red);
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 15px;
+    margin-top: 10px;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.continue-btn:hover {
+    background: var(--dark-red);
+    color: #fff;
+}
+
 
 /* ✅ Responsive */
 @media (max-width: 992px) {
