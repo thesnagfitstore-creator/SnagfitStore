@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useCart } from "../Context/CartContext";
 import productData from "../../Data/product";
-import Toast from "../Components/Toaster/Toast"; // ✅ Import Toast
+import { FaWhatsapp } from "react-icons/fa";
 import "../Styles/ProductDetails.css";
 
 const ProductDetails = () => {
@@ -15,7 +15,10 @@ const ProductDetails = () => {
 
     const [wishlist, setWishlist] = useState([]);
     const [mainImage, setMainImage] = useState(product?.images[0]);
-    const [toast, setToast] = useState(null); // ✅ Toast state
+    const [selectedSize, setSelectedSize] = useState("");
+    const [quantity, setQuantity] = useState(1);
+
+    const [toast, setToast] = useState({ message: "", type: "" });
 
     useEffect(() => {
         const stored = JSON.parse(localStorage.getItem("wishlist")) || [];
@@ -35,6 +38,27 @@ const ProductDetails = () => {
         localStorage.setItem("wishlist", JSON.stringify(updated));
     };
 
+    const handleAddToCart = () => {
+        if (product.stock <= 0) {
+            setToast({ message: "❌ Out of Stock", type: "error" });
+            return;
+        }
+
+        if (!selectedSize) {
+            setToast({ message: "⚠️ Please select a size", type: "error" });
+            return;
+        }
+
+        addToCart({ ...product, quantity, size: selectedSize });
+        setToast({ message: "✅ Added to Cart", type: "success" });
+    };
+
+    const handleShare = () => {
+        const shareText = `🛍️ Check out this product: ${product.name} - $${product.price}\n${window.location.href}`;
+        const whatsappURL = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`;
+        window.open(whatsappURL, "_blank");
+    };
+
     if (!product) {
         return (
             <div style={{ textAlign: "center", marginTop: "50px" }}>
@@ -48,15 +72,6 @@ const ProductDetails = () => {
 
     return (
         <div className="productdetails-container">
-            {/* ✅ Toast Notification */}
-            {toast && (
-                <Toast
-                    message={toast.message}
-                    type={toast.type}
-                    onClose={() => setToast(null)}
-                />
-            )}
-
             <button className="back-btn" onClick={() => navigate(-1)}>
                 ← Back
             </button>
@@ -65,8 +80,8 @@ const ProductDetails = () => {
                 {/* ✅ Product Image Gallery */}
                 <div className="productdetails-gallery">
                     <img src={mainImage} alt={product.name} className="main-img" />
-
-                    <div className="thumbnail-row">
+                    {/* ✅ Swipeable Thumbnail Row */}
+                    <div className="thumbnail-row swipeable">
                         {product.images.map((img, idx) => (
                             <img
                                 key={idx}
@@ -86,15 +101,59 @@ const ProductDetails = () => {
                     <p className="pd-price">${product.price}</p>
                     <p className="pd-desc">{product.description}</p>
 
-                    <div className="pd-actions">
+                    {/* ✅ Stock Status */}
+                    <p className={`pd-stock ${product.stock > 0 ? "in-stock" : "out-stock"}`}>
+                        {product.stock > 0
+                            ? `In Stock (${product.stock} available)`
+                            : "Out of Stock"}
+                    </p>
+
+                    {product.stock > 0 && (
+                        <>
+                            {/* Size Selector */}
+                            <div className="pd-option">
+                                <label>Size:</label>
+                                <select
+                                    value={selectedSize}
+                                    onChange={(e) => setSelectedSize(e.target.value)}
+                                >
+                                    <option value="">Select Size</option>
+                                    {product.size?.map((s, idx) => (
+                                        <option key={idx} value={s}>
+                                            {s}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            {/* Quantity Selector */}
+                            <div className="pd-option quantity-selector">
+                                <label>Quantity:</label>
+                                <button
+                                    type="button"
+                                    onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                                >
+                                    -
+                                </button>
+                                <span>{quantity}</span>
+                                <button
+                                    type="button"
+                                    onClick={() => setQuantity((q) => Math.min(product.stock, q + 1))}
+                                >
+                                    +
+                                </button>
+                            </div>
+                        </>
+                    )}
+
+                    {/* ✅ Desktop Buttons */}
+                    <div className="pd-actions desktop-actions">
                         <button
                             className="pd-btn add"
-                            onClick={() => {
-                                addToCart(product);
-                                setToast({ message: "✅ Added to Cart", type: "success" });
-                            }}
+                            onClick={handleAddToCart}
+                            disabled={product.stock <= 0}
                         >
-                            Add to Cart
+                            {product.stock <= 0 ? "Out of Stock" : "Add to Cart"}
                         </button>
 
                         <button
@@ -106,9 +165,29 @@ const ProductDetails = () => {
                                 ? "Remove from Wishlist"
                                 : "Add to Wishlist"}
                         </button>
+
+                        <button className="pd-btn share" onClick={handleShare}>
+                            <FaWhatsapp className="share-icon" /> Share
+                        </button>
                     </div>
                 </div>
             </div>
+
+            {/* ✅ Sticky Bottom Bar (Mobile Only) */}
+            {product.stock > 0 && (
+                <div className="sticky-bar">
+                    <button className="sticky-add-btn" onClick={handleAddToCart}>
+                        🛒 Add to Cart
+                    </button>
+                </div>
+            )}
+
+            {/* ✅ Toast */}
+            {toast.message && (
+                <div className={`toast ${toast.type}`}>
+                    {toast.message}
+                </div>
+            )}
         </div>
     );
 };
