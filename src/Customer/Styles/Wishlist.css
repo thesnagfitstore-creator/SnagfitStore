@@ -193,3 +193,53 @@
 .btn-add-all:hover {
     background: var(--dark-red);
 }
+
+/* ✅ Clear Wishlist button */
+.btn-clear {
+    background: var(--deep-wine);
+    border: none;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-clear:hover {
+    background: #2b0d0d;
+}
+
+/* ✅ Responsive Fixes */
+@media (max-width: 768px) {
+    .wishlist-title {
+        font-size: 28px;
+    }
+
+    .wishlist-grid {
+        gap: 20px;
+    }
+
+    .wishlist-actions {
+        flex-direction: column;
+    }
+
+    .btn-add,
+    .btn-remove {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .wishlist-top-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .wishlist-top-actions button {
+        width: 100%;
+        justify-content: center;
+    }
+}

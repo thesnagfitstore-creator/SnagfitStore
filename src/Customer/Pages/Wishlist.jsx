@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { FaTrash, FaShoppingCart, FaWhatsapp, FaShareAlt } from "react-icons/fa";
+import { FaTrash, FaShoppingCart, FaWhatsapp, FaShareAlt, FaBroom } from "react-icons/fa";
 import Toast from "../Components/Toaster/Toast";
 import { useCart } from "../Context/CartContext";
 import "../Styles/Wishlist.css";
@@ -29,7 +29,7 @@ export default function WishlistPage() {
         showToast("error", "❌ Removed from Wishlist");
     };
 
-    // Move item to cart
+    // Move single item to cart
     const handleAddToCart = (item) => {
         try {
             addToCart(item);
@@ -52,7 +52,18 @@ export default function WishlistPage() {
         showToast("success", "✅ All items moved to Cart");
     };
 
-    // ✅ Copy wishlist page link
+    // ✅ Clear wishlist
+    const handleClearWishlist = () => {
+        if (wishlist.length === 0) {
+            showToast("warning", "⚠️ Wishlist is already empty");
+            return;
+        }
+        setWishlist([]);
+        localStorage.setItem("wishlist", JSON.stringify([]));
+        showToast("info", "🗑️ Wishlist cleared");
+    };
+
+    // ✅ Copy wishlist link
     const copyLink = () => {
         const url = window.location.href;
         navigator.clipboard.writeText(url);
@@ -84,6 +95,9 @@ export default function WishlistPage() {
                     <div className="wishlist-top-actions">
                         <button className="btn-add-all" onClick={handleAddAllToCart}>
                             <FaShoppingCart /> Add All to Cart
+                        </button>
+                        <button className="btn-clear" onClick={handleClearWishlist}>
+                            <FaBroom /> Clear Wishlist
                         </button>
                         <button className="btn-share" onClick={copyLink}>
                             <FaShareAlt /> Copy Link
