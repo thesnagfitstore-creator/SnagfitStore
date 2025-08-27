@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { FaTrash, FaShoppingCart } from "react-icons/fa";
-import Toast from "../Components/Toaster/Toast"; // ⬅️ create this file
+import Toast from "../Components/Toaster/Toast";
+import { useCart } from "../Context/CartContext";   // ✅ import cart context
 import "../Styles/Wishlist.css";
 
 export default function WishlistPage() {
     const [wishlist, setWishlist] = useState([]);
     const [toast, setToast] = useState(null);
+    const { addToCart } = useCart();  // ✅ get addToCart from context
 
     // Load wishlist from localStorage
     useEffect(() => {
@@ -27,12 +29,11 @@ export default function WishlistPage() {
         showToast("error", "❌ Removed from Wishlist");
     };
 
-    // Move item to cart
-    const addToCart = (item) => {
+    // Move item to cart (now using context)
+    const handleAddToCart = (item) => {
         try {
-            const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
-            localStorage.setItem("cart", JSON.stringify([...storedCart, item]));
-            removeFromWishlist(item.id);
+            addToCart(item);                 // ✅ use global cart context
+            removeFromWishlist(item.id);     // remove from wishlist
             showToast("success", `✅ ${item.name} added to Cart`);
         } catch (error) {
             showToast("warning", "⚠️ Something went wrong");
@@ -64,7 +65,11 @@ export default function WishlistPage() {
                         >
                             {/* Product Image */}
                             <div className="wishlist-img-container">
-                                <img src={item.image} alt={item.name} className="wishlist-img" />
+                                <img
+                                    src={item.images?.[0]}   // ✅ fixed: use first image
+                                    alt={item.name}
+                                    className="wishlist-img"
+                                />
                             </div>
 
                             {/* Product Info */}
@@ -77,7 +82,7 @@ export default function WishlistPage() {
                                 {/* Buttons */}
                                 <div className="wishlist-actions">
                                     <button
-                                        onClick={() => addToCart(item)}
+                                        onClick={() => handleAddToCart(item)} // ✅ fixed
                                         className="btn-add"
                                     >
                                         <FaShoppingCart /> Add to Cart

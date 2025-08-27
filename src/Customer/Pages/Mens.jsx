@@ -1,10 +1,12 @@
+// src/Customer/Pages/Mens.js
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { FaHeart } from "react-icons/fa";
+import { FaHeart, FaShoppingCart } from "react-icons/fa";
+import { useCart } from "../Context/CartContext";
 import Navbar from "../Components/Navigation/Navbar";
 import Toast from "../Components/Toaster/Toast";
 import "../Styles/Mens.css";
-import "../Styles/WishlistIcon.css"
+import "../Styles/WishlistIcon.css";
 import product from "../../Data/product";
 
 const Mens = () => {
@@ -74,22 +76,22 @@ const Mens = () => {
         setWishlist(storedWishlist);
     }, []);
 
+    // Add/Remove Wishlist
     const toggleWishlist = (item) => {
         let updatedWishlist;
-
         if (wishlist.some((p) => p.id === item.id)) {
-            // Remove if already in wishlist
             updatedWishlist = wishlist.filter((p) => p.id !== item.id);
             setToast({ message: "Removed from Wishlist 💔", type: "error" });
         } else {
-            // Add to wishlist
             updatedWishlist = [...wishlist, item];
             setToast({ message: "Added to Wishlist ❤️", type: "success" });
         }
-
         setWishlist(updatedWishlist);
         localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
     };
+
+    // ✅ Use Cart Context
+    const { addToCart } = useCart();
 
     return (
         <>
@@ -263,8 +265,14 @@ const Mens = () => {
 
                                 {/* Cart + Wishlist Buttons */}
                                 <div className="card-actions">
-                                    <button className="cart-btn">
-                                        <i className="fas fa-shopping-cart"></i>
+                                    <button
+                                        className="cart-btn"
+                                        onClick={() => {
+                                            addToCart(product);
+                                            setToast({ message: "✅ Added to Cart", type: "success" });
+                                        }}
+                                    >
+                                        <FaShoppingCart />
                                     </button>
                                     <button
                                         className={`wishlist-btn ${wishlist.some((p) => p.id === product.id) ? "active" : ""}`}
