@@ -121,3 +121,48 @@
     background: var(--deep-wine);
     color: white;
 }
+
+/* Share Wishlist Buttons */
+.wishlist-share {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.btn-share {
+    background: var(--cream);
+    border: 2px solid var(--dark-red);
+    color: var(--dark-red);
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-share:hover {
+    background: var(--dark-red);
+    color: white;
+}
+
+.btn-whatsapp {
+    background: #25d366;
+    border: none;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-whatsapp:hover {
+    background: #1da851;
+}
