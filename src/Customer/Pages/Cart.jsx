@@ -15,6 +15,7 @@ const Cart = () => {
     const [discount, setDiscount] = useState(0);
     const [message, setMessage] = useState("");
 
+    // ✅ Coupon logic
     const applyCoupon = () => {
         let discountValue = 0;
         if (coupon === "SAVE10") {
@@ -31,6 +32,10 @@ const Cart = () => {
         setDiscount(discountValue);
     };
 
+    // ✅ Shipping & Tax logic
+    const shipping = subtotal >= 500 ? 0 : (subtotal > 0 ? 50 : 0); // Free shipping above $500
+    const tax = subtotal * 0.1; // 10% tax
+    const grandTotal = subtotal + shipping + tax - discount;
 
     // ✅ Toast helper
     const showToast = (type, message) => {
@@ -72,6 +77,7 @@ const Cart = () => {
                     <p className="empty-cart">Your cart is empty 🛒</p>
                 ) : (
                     <div className="cart-container">
+                        {/* ✅ Left side: Cart Items */}
                         <div className="cart-items">
                             {cart.map((item) => (
                                 <div className="cart-card" key={item.id}>
@@ -106,12 +112,24 @@ const Cart = () => {
                             ))}
                         </div>
 
-
+                        {/* ✅ Right side: Order Summary */}
                         <div className="cart-summary">
                             <h3>Order Summary</h3>
                             <p>Subtotal: <strong>${subtotal.toFixed(2)}</strong></p>
-                            {discount > 0 && <p>Discount: -${discount.toFixed(2)}</p>}
-                            <h3>Total: ${(subtotal - discount).toFixed(2)}</h3>
+                            <p>
+                                Shipping:{" "}
+                                <strong>
+                                    {shipping === 0 ? "FREE 🚚" : `$${shipping.toFixed(2)}`}
+                                </strong>
+                            </p>
+                            <p>Tax (10%): <strong>${tax.toFixed(2)}</strong></p>
+                            {discount > 0 && (
+                                <p className="discount-text">Discount: -${discount.toFixed(2)}</p>
+                            )}
+                            <hr />
+                            <p className="grand-total">
+                                Grand Total: <strong>${grandTotal.toFixed(2)}</strong>
+                            </p>
 
                             {/* ✅ Coupon Input */}
                             <div className="coupon-box">
@@ -125,12 +143,10 @@ const Cart = () => {
                             </div>
                             {message && <p className="coupon-msg">{message}</p>}
 
-
-                            {/* ✅ Clear Cart Button */}
+                            {/* ✅ Buttons */}
                             <button className="clearcart-btn" onClick={handleClearCart}>
                                 🗑️ Clear Cart
                             </button>
-
                             <button className="checkout-btn">Proceed to Checkout</button>
                         </div>
                     </div>
