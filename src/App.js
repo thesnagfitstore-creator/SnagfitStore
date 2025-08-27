@@ -12,6 +12,7 @@ import Unisex from "./Customer/Pages/Unisex";
 import ContactUS from "./Customer/Pages/Contactus";
 import Wishlist from "./Customer/Pages/Wishlist";
 import Cart from "./Customer/Pages/Cart"; // ✅ Import cart page
+import ProductDetails from "./Customer/Pages/ProductDetails";
 
 export default function App() {
   return (
@@ -27,6 +28,7 @@ export default function App() {
         <Route path="/contact" element={<ContactUS />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/cart" element={<Cart />} /> {/* ✅ Cart Page */}
+        <Route path="/product/:id" element={<ProductDetails />} />
       </Routes>
       <Footer />
     </CartProvider>
