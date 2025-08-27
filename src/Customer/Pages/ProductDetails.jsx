@@ -1,10 +1,9 @@
-// src/Customer/Pages/ProductDetails.jsx
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useCart } from "../Context/CartContext";
 import productData from "../../Data/product";
-import { FaWhatsapp } from "react-icons/fa";
 import "../Styles/ProductDetails.css";
+import { FaWhatsapp } from "react-icons/fa";
 
 const ProductDetails = () => {
     const { id } = useParams();
@@ -15,9 +14,15 @@ const ProductDetails = () => {
 
     const [wishlist, setWishlist] = useState([]);
     const [mainImage, setMainImage] = useState(product?.images[0]);
+    const [currentIndex, setCurrentIndex] = useState(0);
     const [selectedSize, setSelectedSize] = useState("");
     const [quantity, setQuantity] = useState(1);
 
+    // ✅ Swipe state
+    const [touchStart, setTouchStart] = useState(0);
+    const [touchEnd, setTouchEnd] = useState(0);
+
+    // ✅ Toast state
     const [toast, setToast] = useState({ message: "", type: "" });
 
     useEffect(() => {
@@ -53,10 +58,37 @@ const ProductDetails = () => {
         setToast({ message: "✅ Added to Cart", type: "success" });
     };
 
-    const handleShare = () => {
-        const shareText = `🛍️ Check out this product: ${product.name} - $${product.price}\n${window.location.href}`;
-        const whatsappURL = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`;
-        window.open(whatsappURL, "_blank");
+    // ✅ WhatsApp Share
+    const handleShareWhatsApp = () => {
+        const shareText = `Check out this product: ${product.name} - $${product.price}\n${window.location.href}`;
+        const url = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+        window.open(url, "_blank");
+    };
+
+    // ✅ Handle Swipe
+    const handleTouchStart = (e) => {
+        setTouchStart(e.touches[0].clientX);
+    };
+
+    const handleTouchMove = (e) => {
+        setTouchEnd(e.touches[0].clientX);
+    };
+
+    const handleTouchEnd = () => {
+        if (touchStart - touchEnd > 75) {
+            // swipe left
+            const nextIndex = (currentIndex + 1) % product.images.length;
+            setCurrentIndex(nextIndex);
+            setMainImage(product.images[nextIndex]);
+        }
+
+        if (touchEnd - touchStart > 75) {
+            // swipe right
+            const prevIndex =
+                (currentIndex - 1 + product.images.length) % product.images.length;
+            setCurrentIndex(prevIndex);
+            setMainImage(product.images[prevIndex]);
+        }
     };
 
     if (!product) {
@@ -79,16 +111,42 @@ const ProductDetails = () => {
             <div className="productdetails-box">
                 {/* ✅ Product Image Gallery */}
                 <div className="productdetails-gallery">
-                    <img src={mainImage} alt={product.name} className="main-img" />
-                    {/* ✅ Swipeable Thumbnail Row */}
-                    <div className="thumbnail-row swipeable">
+                    {/* Desktop → Single Main Image */}
+                    <img
+                        src={mainImage}
+                        alt={product.name}
+                        className="main-img desktop-only"
+                    />
+
+                    {/* Mobile → Swipeable Carousel */}
+                    <div
+                        className="main-img-carousel mobile-only"
+                        onTouchStart={handleTouchStart}
+                        onTouchMove={handleTouchMove}
+                        onTouchEnd={handleTouchEnd}
+                    >
+                        <img
+                            src={mainImage}
+                            alt={product.name}
+                            className="carousel-img"
+                        />
+                    </div>
+
+                    {/* ✅ Thumbnails */}
+                    <div
+                        className={`thumbnail-row ${window.innerWidth <= 768 ? "swipeable" : ""
+                            }`}
+                    >
                         {product.images.map((img, idx) => (
                             <img
                                 key={idx}
                                 src={img}
                                 alt={`${product.name}-${idx}`}
                                 className={`thumb-img ${mainImage === img ? "active" : ""}`}
-                                onClick={() => setMainImage(img)}
+                                onClick={() => {
+                                    setMainImage(img);
+                                    setCurrentIndex(idx);
+                                }}
                             />
                         ))}
                     </div>
@@ -102,12 +160,16 @@ const ProductDetails = () => {
                     <p className="pd-desc">{product.description}</p>
 
                     {/* ✅ Stock Status */}
-                    <p className={`pd-stock ${product.stock > 0 ? "in-stock" : "out-stock"}`}>
+                    <p
+                        className={`pd-stock ${product.stock > 0 ? "in-stock" : "out-stock"
+                            }`}
+                    >
                         {product.stock > 0
                             ? `In Stock (${product.stock} available)`
                             : "Out of Stock"}
                     </p>
 
+                    {/* ✅ Show selectors only if product in stock */}
                     {product.stock > 0 && (
                         <>
                             {/* Size Selector */}
@@ -118,9 +180,9 @@ const ProductDetails = () => {
                                     onChange={(e) => setSelectedSize(e.target.value)}
                                 >
                                     <option value="">Select Size</option>
-                                    {product.size?.map((s, idx) => (
-                                        <option key={idx} value={s}>
-                                            {s}
+                                    {product.size?.map((size, idx) => (
+                                        <option key={idx} value={size}>
+                                            {size}
                                         </option>
                                     ))}
                                 </select>
@@ -138,7 +200,9 @@ const ProductDetails = () => {
                                 <span>{quantity}</span>
                                 <button
                                     type="button"
-                                    onClick={() => setQuantity((q) => Math.min(product.stock, q + 1))}
+                                    onClick={() =>
+                                        setQuantity((q) => Math.min(product.stock, q + 1))
+                                    }
                                 >
                                     +
                                 </button>
@@ -146,10 +210,10 @@ const ProductDetails = () => {
                         </>
                     )}
 
-                    {/* ✅ Desktop Buttons */}
-                    <div className="pd-actions desktop-actions">
+                    {/* ✅ Buttons (desktop-only Add to Cart, wishlist + WhatsApp) */}
+                    <div className="pd-actions">
                         <button
-                            className="pd-btn add"
+                            className="pd-btn add desktop-only"
                             onClick={handleAddToCart}
                             disabled={product.stock <= 0}
                         >
@@ -166,27 +230,33 @@ const ProductDetails = () => {
                                 : "Add to Wishlist"}
                         </button>
 
-                        <button className="pd-btn share" onClick={handleShare}>
-                            <FaWhatsapp className="share-icon" /> Share
+                        {/* ✅ WhatsApp Share (desktop) */}
+                        <button className="pd-btn whatsapp" onClick={handleShareWhatsApp}>
+                            <FaWhatsapp size={18} /> Share
                         </button>
                     </div>
                 </div>
             </div>
 
-            {/* ✅ Sticky Bottom Bar (Mobile Only) */}
-            {product.stock > 0 && (
-                <div className="sticky-bar">
-                    <button className="sticky-add-btn" onClick={handleAddToCart}>
-                        🛒 Add to Cart
-                    </button>
-                </div>
-            )}
+            {/* ✅ Sticky Bottom Add to Cart (Mobile Only) */}
+            <div className="sticky-bar mobile-only">
+                <button
+                    className="sticky-add-btn"
+                    onClick={handleAddToCart}
+                    disabled={product.stock <= 0}
+                >
+                    {product.stock <= 0 ? "Out of Stock" : "Add to Cart"}
+                </button>
+
+                {/* ✅ WhatsApp Share (mobile sticky bar) */}
+                <button className="sticky-share-btn" onClick={handleShareWhatsApp}>
+                    <FaWhatsapp size={20} /> Share
+                </button>
+            </div>
 
             {/* ✅ Toast */}
             {toast.message && (
-                <div className={`toast ${toast.type}`}>
-                    {toast.message}
-                </div>
+                <div className={`toast ${toast.type}`}>{toast.message}</div>
             )}
         </div>
     );

@@ -65,10 +65,14 @@
 .thumbnail-row.swipeable {
     display: flex;
     overflow-x: auto;
-    gap: 8px;
+    gap: 10px;
     padding: 8px 0;
     flex-wrap: nowrap;
     /* prevent wrapping on mobile */
+    -webkit-overflow-scrolling: touch;
+    /* smooth iOS momentum */
+    scroll-snap-type: x mandatory;
+    /* snap effect */
     scrollbar-width: none;
     /* Firefox */
 }
@@ -78,7 +82,7 @@
     /* Chrome/Safari */
 }
 
-/* ✅ Thumbnails (Default - Desktop) */
+/* ✅ Thumbnails */
 .thumb-img {
     width: 70px;
     height: 70px;
@@ -87,6 +91,10 @@
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
+    scroll-snap-align: start;
+    /* snap to start when swiping */
+    flex: 0 0 auto;
+    /* prevent shrinking in swipe mode */
 }
 
 .thumb-img:hover {
@@ -100,7 +108,6 @@
 /* ✅ Mobile Override */
 @media (max-width: 768px) {
     .thumb-img {
-        flex: 0 0 auto;
         width: 60px;
         height: 60px;
         border-radius: 6px;
@@ -111,7 +118,6 @@
         /* Different highlight for mobile */
     }
 }
-
 
 /* ==== PRODUCT INFO ==== */
 .productdetails-info {
@@ -221,6 +227,21 @@
     cursor: pointer;
 }
 
+/* ✅ Desktop WhatsApp Share Button */
+.pd-btn.whatsapp {
+    background: #25d366;
+    /* WhatsApp green */
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.pd-btn.whatsapp:hover {
+    background: #1da851;
+}
+
+
 .color-options {
     display: flex;
     gap: 8px;
@@ -296,6 +317,14 @@
     font-size: 18px;
 }
 
+/* Hide desktop-only elements on small screens */
+.desktop-only {
+    display: inline-block;
+}
+
+.mobile-only {
+    display: none;
+}
 
 /* ==== RESPONSIVE ==== */
 @media (max-width: 768px) {
@@ -314,7 +343,8 @@
     }
 
     .thumbnail-row {
-        justify-content: center;
+        justify-content: flex-start;
+        width: 100%;
     }
 
     .productdetails-info {
