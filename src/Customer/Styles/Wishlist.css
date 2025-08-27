@@ -166,3 +166,30 @@
 .btn-whatsapp:hover {
     background: #1da851;
 }
+
+/* Top Buttons */
+.wishlist-top-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.btn-add-all {
+    background: var(--red);
+    border: none;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-add-all:hover {
+    background: var(--dark-red);
+}

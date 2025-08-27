@@ -40,6 +40,18 @@ export default function WishlistPage() {
         }
     };
 
+    // ✅ Add all wishlist items to cart
+    const handleAddAllToCart = () => {
+        if (wishlist.length === 0) {
+            showToast("warning", "⚠️ Wishlist is empty");
+            return;
+        }
+        wishlist.forEach((item) => addToCart(item));
+        setWishlist([]);
+        localStorage.setItem("wishlist", JSON.stringify([]));
+        showToast("success", "✅ All items moved to Cart");
+    };
+
     // ✅ Copy wishlist page link
     const copyLink = () => {
         const url = window.location.href;
@@ -68,8 +80,11 @@ export default function WishlistPage() {
                 </motion.div>
             ) : (
                 <>
-                    {/* Share Buttons */}
-                    <div className="wishlist-share">
+                    {/* Top Action Buttons */}
+                    <div className="wishlist-top-actions">
+                        <button className="btn-add-all" onClick={handleAddAllToCart}>
+                            <FaShoppingCart /> Add All to Cart
+                        </button>
                         <button className="btn-share" onClick={copyLink}>
                             <FaShareAlt /> Copy Link
                         </button>
