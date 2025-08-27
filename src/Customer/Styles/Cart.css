@@ -193,6 +193,52 @@
     background: #222;
 }
 
+/* ✅ Coupon Box */
+.coupon-box {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.coupon-box input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    color: #000;
+    /* ✅ Make typed text black */
+    background: #fff;
+    /* ✅ White background */
+}
+
+.coupon-box input::placeholder {
+    color: #666;
+    /* ✅ Placeholder visible */
+}
+
+.coupon-box button {
+    background: var(--red);
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.coupon-box button:hover {
+    background: var(--dark-red);
+}
+
+/* ✅ Coupon Message */
+.coupon-msg {
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
 /* ✅ Responsive */
 @media (max-width: 992px) {
     .cart-container {

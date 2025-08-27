@@ -11,6 +11,27 @@ const Cart = () => {
 
     const subtotal = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
 
+    const [coupon, setCoupon] = useState("");
+    const [discount, setDiscount] = useState(0);
+    const [message, setMessage] = useState("");
+
+    const applyCoupon = () => {
+        let discountValue = 0;
+        if (coupon === "SAVE10") {
+            discountValue = subtotal * 0.1; // 10% off
+            setMessage("✅ SAVE10 applied (10% off)");
+        } else if (coupon === "WELCOME20") {
+            discountValue = subtotal * 0.2; // 20% off
+            setMessage("✅ WELCOME20 applied (20% off)");
+        } else {
+            setMessage("❌ Invalid Coupon Code");
+            setDiscount(0);
+            return;
+        }
+        setDiscount(discountValue);
+    };
+
+
     // ✅ Toast helper
     const showToast = (type, message) => {
         setToast({ type, message });
@@ -89,6 +110,21 @@ const Cart = () => {
                         <div className="cart-summary">
                             <h3>Order Summary</h3>
                             <p>Subtotal: <strong>${subtotal.toFixed(2)}</strong></p>
+                            {discount > 0 && <p>Discount: -${discount.toFixed(2)}</p>}
+                            <h3>Total: ${(subtotal - discount).toFixed(2)}</h3>
+
+                            {/* ✅ Coupon Input */}
+                            <div className="coupon-box">
+                                <input
+                                    type="text"
+                                    placeholder="Enter coupon code"
+                                    value={coupon}
+                                    onChange={(e) => setCoupon(e.target.value)}
+                                />
+                                <button onClick={applyCoupon}>Apply</button>
+                            </div>
+                            {message && <p className="coupon-msg">{message}</p>}
+
 
                             {/* ✅ Clear Cart Button */}
                             <button className="clearcart-btn" onClick={handleClearCart}>
