@@ -1,12 +1,14 @@
+// src/Customer/Pages/OrderSummary.jsx
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "../Styles/OrderSummary.css"; // CSS includes stepper + order summary styles
+import "../Styles/OrderSummary.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faShoppingBag,
     faCheckCircle,
     faCreditCard,
     faMapMarkerAlt,
+    faSignInAlt,
 } from "@fortawesome/free-solid-svg-icons";
 
 import Navbar from "../Components/Navigation/Navbar";
@@ -14,7 +16,7 @@ import { useCart } from "../Context/CartContext";
 import Toast from "../Components/Toaster/Toast";
 
 const OrderSummary = () => {
-    const { cart, removeFromCart, updateQty, clearCart } = useCart();
+    const { cart, removeFromCart, updateQty } = useCart();
     const [toast, setToast] = useState(null);
     const navigate = useNavigate();
 
@@ -73,13 +75,17 @@ const OrderSummary = () => {
         }
     };
 
-    const handleClearCart = () => {
-        clearCart();
-        showToast("info", "🛒 Cart cleared successfully");
-    };
 
-    // Stepper state
-    const completedStep = 2; // 0=Login, 1=Delivery, 2=OrderSummary, 3=Payment
+    // Steps
+    const steps = [
+        { name: "Login", route: "/", icon: faSignInAlt },
+        { name: "Delivery Address", route: "/checkout/delivery", icon: faMapMarkerAlt },
+        { name: "Order Summary", route: "/order-summary", icon: faShoppingBag },
+        { name: "Payment", route: "/checkout/payment", icon: faCreditCard },
+    ];
+
+    // Track completed step dynamically
+    const completedStep = deliveryAddress ? 2 : 1; // Login always done
 
     return (
         <>
@@ -88,35 +94,30 @@ const OrderSummary = () => {
             <section id="order-summary-page">
                 <h2>Order Summary</h2>
 
-                {/* Stepper */}
+                {/* Clickable Stepper */}
                 <div className="checkout-stepper">
-                    <div className={`step ${completedStep >= 0 ? "completed" : ""}`}>
-                        <span>
-                            <FontAwesomeIcon icon={completedStep >= 0 ? faCheckCircle : faMapMarkerAlt} /> Login
-                        </span>
-                    </div>
-                    <div className={`step ${completedStep >= 1 ? "completed" : ""}`}>
-                        <span>
-                            <FontAwesomeIcon icon={completedStep >= 1 ? faCheckCircle : faMapMarkerAlt} /> Delivery Address
-                        </span>
-                    </div>
-                    <div className={`step active`}>
-                        <span>
-                            <FontAwesomeIcon icon={faShoppingBag} /> Order Summary
-                        </span>
-                    </div>
-                    <div className="step">
-                        <span>
-                            <FontAwesomeIcon icon={faCreditCard} /> Payment
-                        </span>
-                    </div>
+                    {steps.map((step, index) => (
+                        <div
+                            key={index}
+                            className={`step ${index < completedStep ? "completed" : ""} ${index === completedStep ? "active" : ""}`}
+                            onClick={() => {
+                                if (index <= completedStep) navigate(step.route);
+                            }}
+                            style={{ cursor: index <= completedStep ? "pointer" : "default" }}
+                            title={index <= completedStep ? "Click to go to this step" : ""}
+                        >
+                            <FontAwesomeIcon
+                                icon={index < completedStep ? faCheckCircle : step.icon}
+                            /> {step.name}
+                        </div>
+                    ))}
                 </div>
 
                 {/* Progress bar */}
                 <div className="step-progress">
                     <div
                         className="step-progress-fill"
-                        style={{ width: `${((completedStep + 1) / 4) * 100}%` }}
+                        style={{ width: `${((completedStep + 1) / steps.length) * 100}%` }}
                     ></div>
                 </div>
 
@@ -131,12 +132,13 @@ const OrderSummary = () => {
                                     <img src={item.images[0]} alt={item.name} />
                                     <div className="order-info">
                                         <h4>{item.name}</h4>
-                                        <p>${item.price.toFixed(2)}</p>
+                                        <p>Unit Price: ${item.price.toFixed(2)}</p>
                                         <div className="qty-control">
                                             <button onClick={() => updateQty(item.id, item.qty - 1)}>-</button>
                                             <span>{item.qty}</span>
                                             <button onClick={() => updateQty(item.id, item.qty + 1)}>+</button>
                                         </div>
+                                        <p>Line Total: <strong>${(item.price * item.qty).toFixed(2)}</strong></p>
                                         <div className="order-buttons">
                                             <button
                                                 className="remove-btn"
@@ -152,11 +154,12 @@ const OrderSummary = () => {
                                             </button>
                                         </div>
                                     </div>
+
                                 </div>
                             ))}
                         </div>
 
-                        {/* Combined Order Summary + Delivery Address */}
+                        {/* Order Summary + Delivery */}
                         <div className="order-summary">
                             <h3>Order Summary</h3>
                             <p>Subtotal: <strong>${subtotal.toFixed(2)}</strong></p>
@@ -169,7 +172,7 @@ const OrderSummary = () => {
                                 Estimated Delivery: <strong>{formatDate(minDelivery)} - {formatDate(maxDelivery)}</strong>
                             </p>
 
-                            {/* Delivery Address */}
+                            {/* Delivery Address Preview */}
                             {deliveryAddress && (
                                 <div className="delivery-preview">
                                     <h3>Delivery Address</h3>
@@ -180,8 +183,6 @@ const OrderSummary = () => {
                                     <p><strong>City:</strong> {deliveryAddress.city}</p>
                                     <p><strong>State:</strong> {deliveryAddress.state}</p>
                                     <p><strong>Zip:</strong> {deliveryAddress.zip}</p>
-
-                                    {/* Change Address button */}
                                     <button
                                         className="continue-btn"
                                         style={{ marginTop: "1rem" }}
@@ -191,7 +192,6 @@ const OrderSummary = () => {
                                     </button>
                                 </div>
                             )}
-
 
                             {/* Coupon Box */}
                             <div className="coupon-box">
@@ -206,11 +206,9 @@ const OrderSummary = () => {
                             {message && <p className="coupon-msg">{message}</p>}
 
                             {/* Buttons */}
-                            <button className="clearcart-btn" onClick={handleClearCart}>
-                                🗑️ Clear Cart
-                            </button>
-                            <button className="checkout-btn" onClick={() => navigate("/checkout/delivery")}>
-                                Proceed to Checkout
+
+                            <button className="checkout-btn" onClick={() => navigate("/checkout/payment")}>
+                                Proceed to Payment
                             </button>
                             <button className="continue-btn" onClick={() => navigate("/mens")}>
                                 ⬅️ Continue Shopping
