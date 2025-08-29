@@ -1,3 +1,4 @@
+// src/App.js
 import React from "react";
 import Navbar from "./Customer/Components/Navigation/Navbar";
 import Footer from "./Customer/Components/Footer/Footer";
@@ -17,6 +18,7 @@ import Login from "./Customer/Pages/Login";
 import ForgotPassword from "./Customer/Pages/ForgotPassword";
 import ProductDetails from "./Customer/Pages/ProductDetails";
 import DeliveryAddress from "./Customer/Pages/DeliveryAddress";
+import OrderSummary from "./Customer/Pages/OrderSummary";
 
 export default function App() {
   return (
@@ -32,6 +34,7 @@ export default function App() {
         <Route path="/contact" element={<ContactUS />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/cart" element={<Cart />} /> {/* ✅ Cart Page */}
+        <Route path="/order-summary" element={<OrderSummary />} /> {/* ✅ Added OrderSummary Page */}
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
