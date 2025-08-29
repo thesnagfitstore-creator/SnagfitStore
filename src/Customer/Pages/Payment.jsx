@@ -45,15 +45,18 @@ const Payment = () => {
 
     // COD Payment
     const handleCOD = () => {
+        localStorage.setItem("lastOrder", JSON.stringify({ cart, subtotal, shipping, tax, grandTotal, deliveryAddress }));
         clearCart();
         showToast("success", "✅ Order placed successfully with Cash on Delivery");
-        navigate("/order-confirmation");
+        navigate("/order-success");
     };
 
     // Razorpay Payment placeholder
     const handleOnlinePayment = () => {
-        alert("🔹 Razorpay integration will go here");
-        // After success, clear cart & navigate to confirmation
+        localStorage.setItem("lastOrder", JSON.stringify({ cart, subtotal, shipping, tax, grandTotal, deliveryAddress }));
+        clearCart();
+        showToast("success", "✅ Online Payment Successful");
+        navigate("/order-success");
     };
 
     return (
@@ -140,7 +143,6 @@ const Payment = () => {
                                         </button>
                                     </div>
                                 )}
-
                             </>
                         )}
                     </div>

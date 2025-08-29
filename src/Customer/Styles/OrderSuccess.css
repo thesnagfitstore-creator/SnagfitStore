@@ -1,0 +1,156 @@
+#order-success-page {
+    padding: 2rem;
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+#order-success-page h2 {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    color: #4caf50;
+}
+
+/* Stepper */
+.checkout-stepper {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.step {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+    padding: 0.5rem 1rem;
+    border-bottom: 3px solid #ccc;
+    font-weight: bold;
+    color: #777;
+    min-width: 120px;
+    justify-content: center;
+    position: relative;
+}
+
+.step.completed {
+    border-bottom-color: #4caf50;
+    color: #4caf50;
+}
+
+.step.active {
+    border-bottom-color: #2196f3;
+    color: #2196f3;
+}
+
+/* Progress bar */
+.step-progress {
+    height: 5px;
+    background-color: #eee;
+    border-radius: 5px;
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+.step-progress-fill {
+    height: 100%;
+    background-color: #4caf50;
+    border-radius: 5px;
+    transition: width 0.3s ease-in-out;
+}
+
+.success-content {
+    margin-top: 2rem;
+}
+
+.order-id,
+.delivery-date {
+    font-size: 1.1rem;
+    margin: 0.8rem 0;
+}
+
+/* Purchased Items Summary */
+.purchased-items {
+    background-color: #fff;
+    padding: 1rem;
+    margin: 1.5rem auto;
+    border-radius: 10px;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    text-align: left;
+}
+
+.order-card {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.order-card img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.order-info h4 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.order-info p {
+    margin: 0.2rem 0;
+}
+
+.grand-total {
+    font-weight: bold;
+    margin-top: 0.5rem;
+}
+
+/* Buttons */
+.success-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.download-btn,
+.my-orders-btn {
+    padding: 0.8rem 1.2rem;
+    border-radius: 8px;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: bold;
+    color: #fff;
+}
+
+.download-btn {
+    background-color: #2196f3;
+}
+
+.download-btn:hover {
+    background-color: #1976d2;
+}
+
+.my-orders-btn {
+    background-color: #4caf50;
+}
+
+.my-orders-btn:hover {
+    background-color: #388e3c;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .purchased-items {
+        width: 100%;
+    }
+
+    .success-buttons {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+}

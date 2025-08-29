@@ -20,6 +20,7 @@ import ProductDetails from "./Customer/Pages/ProductDetails";
 import DeliveryAddress from "./Customer/Pages/DeliveryAddress";
 import OrderSummary from "./Customer/Pages/OrderSummary";
 import Payment from "./Customer/Pages/Payment";
+import OrderSuccess from "./Customer/Pages/OrderSuccess";
 
 export default function App() {
   return (
@@ -42,6 +43,7 @@ export default function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/checkout/delivery" element={<DeliveryAddress />} />
         <Route path="/checkout/payment" element={<Payment />} />
+        <Route path="/order-success" element={<OrderSuccess />} />
       </Routes>
       <Footer />
     </CartProvider>
