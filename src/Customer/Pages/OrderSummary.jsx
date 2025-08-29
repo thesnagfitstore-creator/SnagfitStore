@@ -149,7 +149,7 @@ const OrderSummary = () => {
                                             >
                                                 ❌ Remove
                                             </button>
-                                            <button className="wishlist-btn" onClick={() => moveToWishlist(item)}>
+                                            <button className="wishlist-button" onClick={() => moveToWishlist(item)}>
                                                 💖 Wishlist
                                             </button>
                                         </div>
