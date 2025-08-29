@@ -5,7 +5,8 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    background: var(--cream);
+    background: #f7f3e3;
+    /* cream */
     padding: 14px 20px;
     border-radius: 10px;
     font-size: 14px;
@@ -20,13 +21,16 @@
 }
 
 .toast-success {
-    border-left: 5px solid var(--red);
-    color: var(--black);
+    border-left: 5px solid #e63946;
+    /* red */
+    color: #000000;
+    /* black */
 }
 
 .toast-error {
-    border-left: 5px solid var(--dark-red);
-    color: var(--dark-red);
+    border-left: 5px solid #8b0000;
+    /* dark red */
+    color: #8b0000;
 }
 
 .toast-warning {

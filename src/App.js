@@ -14,6 +14,7 @@ import Wishlist from "./Customer/Pages/Wishlist";
 import Cart from "./Customer/Pages/Cart";
 import SignUp from "./Customer/Pages/SignUp";
 import Login from "./Customer/Pages/Login";
+import ForgotPassword from "./Customer/Pages/ForgotPassword";
 import ProductDetails from "./Customer/Pages/ProductDetails";
 
 export default function App() {
@@ -33,6 +34,9 @@ export default function App() {
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+
+
 
       </Routes>
       <Footer />
