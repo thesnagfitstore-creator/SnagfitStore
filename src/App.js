@@ -11,7 +11,8 @@ import Womens from "./Customer/Pages/Womens";
 import Unisex from "./Customer/Pages/Unisex";
 import ContactUS from "./Customer/Pages/Contactus";
 import Wishlist from "./Customer/Pages/Wishlist";
-import Cart from "./Customer/Pages/Cart"; // ✅ Import cart page
+import Cart from "./Customer/Pages/Cart";
+import SignUp from "./Customer/Pages/SignUp";
 import ProductDetails from "./Customer/Pages/ProductDetails";
 
 export default function App() {
@@ -29,6 +30,8 @@ export default function App() {
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/cart" element={<Cart />} /> {/* ✅ Cart Page */}
         <Route path="/product/:id" element={<ProductDetails />} />
+        <Route path="/signup" element={<SignUp />} />
+
       </Routes>
       <Footer />
     </CartProvider>

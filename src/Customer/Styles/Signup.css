@@ -1,0 +1,320 @@
+:root {
+    --black: #0d0d0d;
+    --red: #ff3131;
+    --dark-red: #741c1c;
+    --deep-wine: #441515;
+    --cream: #f7f3e3;
+}
+
+body {
+    font-family: "Arial", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Full page container */
+.signup-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: var(--cream);
+    padding: 80px;
+}
+
+/* Signup card */
+.signup-box {
+    background: #fff;
+    padding: 35px 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 420px;
+}
+
+/* Title */
+.signup-title {
+    text-align: center;
+    font-size: 2rem;
+    color: var(--deep-wine);
+    margin-bottom: 25px;
+    font-weight: 700;
+}
+
+/* Form styling */
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.signup-form label {
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: 6px;
+    font-size: 0.95rem;
+}
+
+.signup-form input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #eee;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.signup-form input:focus {
+    border-color: var(--red);
+    box-shadow: 0 0 5px rgba(255, 49, 49, 0.4);
+    outline: none;
+}
+
+/* Password hints */
+.password-hints {
+    margin-top: 10px;
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+.password-hints p {
+    margin: 4px 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.3s ease;
+}
+
+.password-hints .valid {
+    color: green;
+    font-weight: 600;
+}
+
+.password-hints .invalid {
+    color: #888;
+}
+
+
+/* Password wrapper */
+.password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-wrapper input {
+    width: 100%;
+    padding-right: 40px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    color: #777;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+.toggle-password:hover {
+    color: var(--red);
+}
+
+/* Password strength */
+.password-strength {
+    margin-top: 8px;
+}
+
+.strength-bar {
+    height: 6px;
+    border-radius: 4px;
+    background: #eee;
+    width: 100%;
+    margin-bottom: 5px;
+    transition: background 0.3s ease, width 0.3s ease;
+}
+
+.strength-1 {
+    background: #ff4d4d;
+    width: 25%;
+}
+
+.strength-2 {
+    background: #ff9800;
+    width: 50%;
+}
+
+.strength-3 {
+    background: #4caf50;
+    width: 75%;
+}
+
+.strength-4 {
+    background: #2e7d32;
+    width: 100%;
+}
+
+.strength-text {
+    font-size: 0.85rem;
+    color: #555;
+    margin: 0;
+}
+
+/* Button */
+.signup-btn {
+    background: var(--red);
+    color: white;
+    padding: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.signup-btn:hover {
+    background: var(--dark-red);
+    transform: scale(1.03);
+}
+
+/* Footer text */
+.signup-footer {
+    text-align: center;
+    margin-top: 20px;
+    color: var(--black);
+    font-size: 0.95rem;
+}
+
+.signup-footer a {
+    color: var(--red);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.signup-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Toast notifications */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    padding: 14px 20px;
+    color: white;
+    font-weight: 600;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    animation: fadeIn 0.5s ease;
+}
+
+.toast.success {
+    background: #28a745;
+}
+
+.toast.error {
+    background: #dc3545;
+}
+
+/* Confirm password live message */
+.confirm-message {
+    font-size: 0.9rem;
+    margin-top: 6px;
+}
+
+.confirm-message.valid {
+    color: green;
+}
+
+.confirm-message.invalid {
+    color: red;
+}
+
+/* Disabled button style */
+.signup-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* ✅ Fade-out animation for success */
+.fade-out {
+    animation: fadeOut 1.5s ease forwards;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}
+
+/* ✅ Responsive design */
+@media (max-width: 600px) {
+    .signup-box {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .signup-title {
+        font-size: 1.5rem;
+    }
+
+    .signup-form input {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .signup-btn {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ✅ Responsive adjustments */
+@media (max-width: 480px) {
+    .signup-box {
+        padding: 25px 20px;
+    }
+
+    .signup-title {
+        font-size: 1.6rem;
+    }
+
+    .signup-btn {
+        font-size: 0.9rem;
+        padding: 12px;
+    }
+
+    .toast {
+        bottom: 15px;
+        right: 15px;
+        font-size: 0.85rem;
+    }
+}
