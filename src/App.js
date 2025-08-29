@@ -16,6 +16,7 @@ import SignUp from "./Customer/Pages/SignUp";
 import Login from "./Customer/Pages/Login";
 import ForgotPassword from "./Customer/Pages/ForgotPassword";
 import ProductDetails from "./Customer/Pages/ProductDetails";
+import DeliveryAddress from "./Customer/Pages/DeliveryAddress";
 
 export default function App() {
   return (
@@ -35,9 +36,7 @@ export default function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-
-
-
+        <Route path="/checkout/delivery" element={<DeliveryAddress />} />
       </Routes>
       <Footer />
     </CartProvider>

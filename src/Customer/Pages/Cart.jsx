@@ -151,7 +151,7 @@ const Cart = () => {
 
                             {/* ✅ Buttons */}
                             <button className="clearcart-btn" onClick={handleClearCart}>🗑️ Clear Cart</button>
-                            <button className="checkout-btn">Proceed to Checkout</button>
+                            <button className="checkout-btn" onClick={() => navigate("/checkout/delivery")}>Proceed to Checkout</button>
                             <button className="continue-btn" onClick={() => navigate("/mens")}>
                                 ⬅️ Continue Shopping
                             </button>
