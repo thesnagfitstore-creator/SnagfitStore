@@ -1,156 +1,196 @@
+/* ===== Page Layout ===== */
 #order-success-page {
-    padding: 2rem;
-    font-family: 'Arial', sans-serif;
-    background-color: #f9f9f9;
-    text-align: center;
+  padding: 2rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #e0f7fa, #f9f9f9);
+  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden; /* for confetti */
 }
 
-#order-success-page h2 {
-    font-size: 1.8rem;
-    margin-bottom: 2rem;
-    color: #4caf50;
+.success-box {
+  background: #fff;
+  padding: 3rem 2rem;
+  border-radius: 20px;
+  max-width: 520px;
+  width: 100%;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+  text-align: center;
+  animation: fadeInUp 0.6s ease-in-out;
+  position: relative;
+  z-index: 2;
 }
 
-/* Stepper */
-.checkout-stepper {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-    flex-wrap: wrap;
+/* ===== Animated Success Icon ===== */
+.success-icon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  perspective: 600px;
 }
 
-.step {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    flex: 1;
-    padding: 0.5rem 1rem;
-    border-bottom: 3px solid #ccc;
-    font-weight: bold;
-    color: #777;
-    min-width: 120px;
-    justify-content: center;
-    position: relative;
+.checkmark {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  stroke-width: 3;
+  stroke: #4caf50;
+  stroke-miterlimit: 10;
+  animation: popIn 0.6s ease forwards;
 }
 
-.step.completed {
-    border-bottom-color: #4caf50;
-    color: #4caf50;
+.checkmark-circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 3;
+  stroke-miterlimit: 10;
+  stroke: #4caf50;
+  fill: none;
+  animation: strokeCircle 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
 }
 
-.step.active {
-    border-bottom-color: #2196f3;
-    color: #2196f3;
+.checkmark-check {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  stroke-width: 4;
+  stroke: #4caf50; /* Tick is now green */
+  animation: strokeTick 0.4s cubic-bezier(0.65, 0, 0.45, 1) 0.6s forwards;
 }
 
-/* Progress bar */
-.step-progress {
-    height: 5px;
-    background-color: #eee;
-    border-radius: 5px;
-    margin-bottom: 2rem;
-    width: 100%;
+
+/* ===== Circle & Tick Animations ===== */
+@keyframes popIn {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
-.step-progress-fill {
-    height: 100%;
-    background-color: #4caf50;
-    border-radius: 5px;
-    transition: width 0.3s ease-in-out;
+@keyframes strokeCircle {
+  0% {
+    stroke-dashoffset: 166;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
 }
 
-.success-content {
-    margin-top: 2rem;
+@keyframes strokeTick {
+  0% {
+    stroke-dashoffset: 48;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
 }
 
-.order-id,
-.delivery-date {
-    font-size: 1.1rem;
-    margin: 0.8rem 0;
+/* ===== Order Info ===== */
+.success-box h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #2e7d32;
+  font-weight: 600;
 }
 
-/* Purchased Items Summary */
-.purchased-items {
-    background-color: #fff;
-    padding: 1rem;
-    margin: 1.5rem auto;
-    border-radius: 10px;
-    max-width: 600px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    text-align: left;
+.order-id {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  color: #555;
+  line-height: 1.5;
 }
 
-.order-card {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 1rem;
-}
-
-.order-card img {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 8px;
-}
-
-.order-info h4 {
-    margin: 0;
-    font-size: 1rem;
-}
-
-.order-info p {
-    margin: 0.2rem 0;
-}
-
-.grand-total {
-    font-weight: bold;
-    margin-top: 0.5rem;
-}
-
-/* Buttons */
+/* ===== Buttons ===== */
 .success-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    margin-top: 1.5rem;
-    flex-wrap: wrap;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .download-btn,
 .my-orders-btn {
-    padding: 0.8rem 1.2rem;
-    border-radius: 8px;
-    border: none;
-    font-size: 1rem;
-    cursor: pointer;
-    font-weight: bold;
-    color: #fff;
+  padding: 0.9rem 1.8rem;
+  border-radius: 10px;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  color: #fff;
+  transition: all 0.3s ease-in-out;
 }
 
 .download-btn {
-    background-color: #2196f3;
+  background-color: #2196f3;
 }
 
 .download-btn:hover {
-    background-color: #1976d2;
+  background-color: #1976d2;
 }
 
 .my-orders-btn {
-    background-color: #4caf50;
+  background-color: #4caf50;
 }
 
 .my-orders-btn:hover {
-    background-color: #388e3c;
+  background-color: #388e3c;
 }
 
-/* Responsive */
-@media (max-width: 900px) {
-    .purchased-items {
-        width: 100%;
-    }
+/* ===== Fade In ===== */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-    .success-buttons {
-        flex-direction: column;
-        gap: 0.8rem;
-    }
+/* ===== Confetti Effect ===== */
+.confetti {
+  position: absolute;
+  top: -10px;
+  left: var(--x);
+  width: var(--size);
+  height: var(--size);
+  background-color: var(--color);
+  border-radius: 50%;
+  opacity: 0.9;
+  animation: confettiFall var(--duration) linear var(--delay) infinite;
+}
+
+@keyframes confettiFall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(600px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 600px) {
+  .success-box {
+    padding: 2rem 1.5rem;
+  }
+
+  .success-buttons {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
 }
