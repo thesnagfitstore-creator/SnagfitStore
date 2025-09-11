@@ -2,7 +2,7 @@
 import React from "react";
 import Navbar from "./Customer/Components/Navigation/Navbar";
 import Footer from "./Customer/Components/Footer/Footer";
-import '@fortawesome/fontawesome-free/css/all.min.css';
+import "@fortawesome/fontawesome-free/css/all.min.css";
 import { CartProvider } from "./Customer/Context/CartContext";
 import { Routes, Route } from "react-router-dom";
 import Home from "./Customer/Pages/Home";
@@ -21,6 +21,7 @@ import DeliveryAddress from "./Customer/Pages/DeliveryAddress";
 import OrderSummary from "./Customer/Pages/OrderSummary";
 import Payment from "./Customer/Pages/Payment";
 import OrderSuccess from "./Customer/Pages/OrderSuccess";
+import InvoicePage from "./Customer/Pages/InvoicePage";
 
 export default function App() {
   return (
@@ -36,7 +37,8 @@ export default function App() {
         <Route path="/contact" element={<ContactUS />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/cart" element={<Cart />} /> {/* ✅ Cart Page */}
-        <Route path="/order-summary" element={<OrderSummary />} /> {/* ✅ Added OrderSummary Page */}
+        <Route path="/order-summary" element={<OrderSummary />} />{" "}
+        {/* ✅ Added OrderSummary Page */}
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
@@ -44,6 +46,7 @@ export default function App() {
         <Route path="/checkout/delivery" element={<DeliveryAddress />} />
         <Route path="/checkout/payment" element={<Payment />} />
         <Route path="/order-success" element={<OrderSuccess />} />
+        <Route path="/invoice" element={<InvoicePage />} />
       </Routes>
       <Footer />
     </CartProvider>

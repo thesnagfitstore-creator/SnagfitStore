@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../Components/Navigation/Navbar";
-import Footer from "../Components/Footer/Footer";
 import "../Styles/OrderSuccess.css";
 
 const OrderSuccess = () => {
@@ -73,7 +72,6 @@ const OrderSuccess = () => {
           </div>
         </div>
       </section>
-      <Footer />
     </>
   );
 };
