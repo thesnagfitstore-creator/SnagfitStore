@@ -1,0 +1,419 @@
+/* ======================
+   My Orders Page Styles
+====================== */
+
+.orders-page {
+  background: #f7f3e3;
+  padding: 90px 16px;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  color: #0d0d0d;
+}
+
+.orders-title {
+  max-width: 1100px;
+  margin: 0 auto 25px;
+  font-size: 26px;
+  font-weight: 700;
+  color: #441515;
+}
+
+.orders-list {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  gap: 24px;
+}
+
+.order-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  border-top: 5px solid #ff3131;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.order-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+  color: #333;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.order-total {
+  font-weight: 700;
+  color: #ff3131;
+}
+
+/* ======================
+   Search + Filter
+====================== */
+.order-controls {
+  max-width: 1100px;
+  margin: 0 auto 20px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.order-controls input,
+.order-controls select {
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  flex: 1;
+  min-width: 200px;
+}
+
+.order-controls input:focus,
+.order-controls select:focus {
+  border-color: #ff3131;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 49, 49, 0.3);
+}
+
+/* ======================
+   Status Badges
+====================== */
+.status {
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 14px;
+  font-size: 12px;
+  text-transform: capitalize;
+}
+
+.status.delivered {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status.shipped {
+  background: #d1ecf1;
+  color: #0c5460;
+}
+
+.status.out-for-delivery {
+  background: #ffeeba;
+  color: #856404;
+}
+
+.status.ordered {
+  background: #28a745;
+  color: #fff;
+}
+
+.status.cancelled {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.status.returned {
+  background: #f8d7da;
+  color: #a10000;
+}
+
+.status-msg {
+  display: block;
+  font-size: 12px;
+  color: #666;
+  margin-top: 4px;
+}
+
+/* ======================
+   Order Timeline (Stepper with Icons)
+====================== */
+.order-timeline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 20px;
+  background: #fafafa;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  position: relative;
+}
+
+/* Each step container */
+.timeline-step {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #bbb;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+/* Circle with Font Awesome icon */
+.timeline-step .circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #ddd;
+  border: 3px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 16px;
+  margin-bottom: 8px;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+/* Active / Completed circles */
+.timeline-step.active .circle,
+.timeline-step.completed .circle {
+  background: #28a745;
+  border-color: #28a745;
+}
+
+/* Connecting line behind circles */
+.timeline-step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 4px;
+  background: #ddd;
+  z-index: 1;
+  transform: translateX(50%);
+  transition: background 0.3s ease;
+}
+
+/* Highlight completed/active connecting lines */
+.timeline-step.completed:not(:last-child)::after,
+.timeline-step.active:not(:last-child)::after {
+  background: #28a745;
+}
+
+/* Step label (hidden, using icons instead) */
+.step-label {
+  font-size: 0;
+}
+
+/* ======================
+   Items
+====================== */
+.order-items {
+  padding: 16px 20px;
+  display: grid;
+  gap: 14px;
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 10px;
+}
+
+.item-thumb {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  background: #fafafa;
+}
+
+.item-info {
+  flex: 1;
+}
+
+.item-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #222;
+}
+
+.item-variant {
+  font-size: 13px;
+  color: #666;
+  margin-top: 2px;
+}
+
+.item-qty,
+.item-price {
+  font-size: 14px;
+  color: #333;
+  margin-top: 2px;
+}
+
+/* ======================
+   Order Actions - Icons + Tooltip (Bottom)
+====================== */
+.order-actions-icons {
+  display: flex;
+  gap: 20px;
+  padding: 14px 20px;
+}
+
+.action-icon {
+  position: relative;
+  width: 45px;
+  height: 45px;
+  background: #f0f0f0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 20px;
+  color: #555;
+}
+
+.action-icon:hover {
+  transform: scale(1.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Specific colors for actions */
+.action-icon.cancel i {
+  color: #dc3545;
+}
+.action-icon.warning i {
+  color: #ff9800;
+}
+.action-icon.review i {
+  color: #ffb400;
+}
+/* Icon colors */
+.action-icon i {
+  font-size: 20px;
+  color: #555; /* default color */
+  transition: color 0.3s ease;
+}
+
+.action-icon.cancel i {
+  color: #dc3545;
+}
+
+.action-icon.warning i {
+  color: #ff9800;
+}
+
+.action-icon.review i {
+  color: #ffb400;
+}
+
+.action-icon.view i {
+  color: #007bff;
+}
+
+.action-icon.track i {
+  color: #17a2b8;
+}
+
+.action-icon.invoice i {
+  color: #28a745;
+}
+
+/* Tooltip below the icon */
+.action-icon .tooltip {
+  position: absolute;
+  top: 120%; /* below the icon */
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: #fff;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.action-icon:hover .tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(5px);
+}
+
+/* ======================
+   Empty Orders
+====================== */
+.empty-orders {
+  max-width: 600px;
+  margin: 100px auto;
+  text-align: center;
+  background: #fff;
+  padding: 50px 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.empty-orders h2 {
+  font-size: 22px;
+  margin-bottom: 12px;
+  color: #441515;
+}
+
+.empty-orders p {
+  margin-bottom: 20px;
+  font-size: 15px;
+  color: #555;
+}
+
+/* ======================
+   Responsive
+====================== */
+@media (max-width: 768px) {
+  .order-header {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .order-actions-icons {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  .order-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .item-thumb {
+    width: 100%;
+    height: auto;
+  }
+
+  .order-timeline {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 16px;
+  }
+
+  .timeline-step {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .timeline-step::after {
+    display: none;
+  }
+
+  .circle {
+    margin-bottom: 0;
+  }
+}

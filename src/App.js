@@ -22,6 +22,7 @@ import OrderSummary from "./Customer/Pages/OrderSummary";
 import Payment from "./Customer/Pages/Payment";
 import OrderSuccess from "./Customer/Pages/OrderSuccess";
 import InvoicePage from "./Customer/Pages/InvoicePage";
+import MyOrdersPage from "./Customer/Pages/MyOrdersPage"; // ✅ Import MyOrdersPage
 
 export default function App() {
   return (
@@ -47,6 +48,8 @@ export default function App() {
         <Route path="/checkout/payment" element={<Payment />} />
         <Route path="/order-success" element={<OrderSuccess />} />
         <Route path="/invoice" element={<InvoicePage />} />
+        <Route path="/my-orders" element={<MyOrdersPage />} />{" "}
+        {/* ✅ MyOrdersPage route */}
       </Routes>
       <Footer />
     </CartProvider>

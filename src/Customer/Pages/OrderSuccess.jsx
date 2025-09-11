@@ -5,18 +5,32 @@ import "../Styles/OrderSuccess.css";
 
 const OrderSuccess = () => {
   const navigate = useNavigate();
-  const [orderId, setOrderId] = useState("");
+  const [order, setOrder] = useState(null);
 
   useEffect(() => {
-    const id = "ORD" + Math.floor(100000 + Math.random() * 900000);
-    setOrderId(id);
+    const savedOrder = localStorage.getItem("lastOrder");
+    if (savedOrder) {
+      setOrder(JSON.parse(savedOrder));
+    }
   }, []);
+
+  if (!order) {
+    return (
+      <>
+        <Navbar />
+        <section id="order-success-page">
+          <h2>No order found</h2>
+          <p>Please place an order first.</p>
+          <button onClick={() => navigate("/")}>Go to Shop</button>
+        </section>
+      </>
+    );
+  }
 
   return (
     <>
       <Navbar />
       <section id="order-success-page">
-        {/* Confetti */}
         {[...Array(50)].map((_, i) => (
           <div
             key={i}
@@ -53,7 +67,7 @@ const OrderSuccess = () => {
           <h2>🎉 Order Placed Successfully!</h2>
           <p className="order-id">
             Your order has been confirmed. <br />
-            🆔 <strong>Order ID: {orderId}</strong>
+            🆔 <strong>{order.orderId}</strong>
           </p>
 
           <div className="success-buttons">
