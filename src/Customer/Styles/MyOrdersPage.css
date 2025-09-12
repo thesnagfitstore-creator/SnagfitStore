@@ -283,43 +283,28 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Specific colors for actions */
-.action-icon.cancel i {
-  color: #dc3545;
-}
-.action-icon.warning i {
-  color: #ff9800;
-}
-.action-icon.review i {
-  color: #ffb400;
-}
 /* Icon colors */
 .action-icon i {
   font-size: 20px;
-  color: #555; /* default color */
+  color: #555;
   transition: color 0.3s ease;
 }
 
 .action-icon.cancel i {
   color: #dc3545;
 }
-
 .action-icon.warning i {
   color: #ff9800;
 }
-
 .action-icon.review i {
   color: #ffb400;
 }
-
 .action-icon.view i {
   color: #007bff;
 }
-
 .action-icon.track i {
   color: #17a2b8;
 }
-
 .action-icon.invoice i {
   color: #28a745;
 }
@@ -327,7 +312,7 @@
 /* Tooltip below the icon */
 .action-icon .tooltip {
   position: absolute;
-  top: 120%; /* below the icon */
+  top: 120%;
   left: 50%;
   transform: translateX(-50%);
   background: #333;
@@ -372,48 +357,185 @@
 }
 
 /* ======================
-   Responsive
+   Pagination
 ====================== */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 30px auto 0;
+  flex-wrap: wrap;
+}
+
+.pagination button {
+  padding: 8px 14px;
+  border: 1px solid #ccc;
+  background: #fff;
+  color: #333;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+  min-width: 40px;
+}
+
+.pagination button:hover {
+  background: #ff3131;
+  color: #fff;
+  border-color: #ff3131;
+}
+
+.pagination button.active {
+  background: #ff3131;
+  color: #fff;
+  border-color: #ff3131;
+  font-weight: 600;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Hide default text style if you want cleaner look */
+.pagination .page-info {
+  font-size: 14px;
+  color: #666;
+  margin: 0 8px;
+}
+/* ======================
+   Responsive Improvements
+====================== */
+
+/* Mobile first - <=768px */
 @media (max-width: 768px) {
+  .orders-page {
+    padding: 20px 12px;
+  }
+
+  .orders-title {
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+  /* Header */
   .order-header {
     flex-direction: column;
-    gap: 6px;
-  }
-
-  .order-actions-icons {
-    flex-direction: row;
-    justify-content: flex-start;
-  }
-
-  .order-item {
-    flex-direction: column;
-    align-items: flex-start;
     gap: 8px;
   }
 
-  .item-thumb {
-    width: 100%;
-    height: auto;
-  }
-
+  /* Timeline */
   .order-timeline {
     flex-direction: column;
     align-items: flex-start;
-    gap: 20px;
-    padding: 16px;
+    gap: 15px;
+    padding: 12px 0;
   }
 
   .timeline-step {
     flex-direction: row;
     align-items: center;
+    gap: 10px;
+  }
+
+  .timeline-line {
+    display: none; /* hide connecting lines on mobile */
+  }
+
+  /* Order Items */
+  .order-items {
+    flex-direction: column;
     gap: 12px;
   }
 
-  .timeline-step::after {
-    display: none;
+  .order-item {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
   }
 
-  .circle {
-    margin-bottom: 0;
+  .item-thumb {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+  }
+
+  .item-info {
+    flex: 1;
+  }
+
+  /* Actions */
+  .order-actions-icons {
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: flex-start;
+  }
+
+  .action-icon {
+    padding: 6px 8px;
+  }
+
+  /* Pagination */
+  .pagination {
+    gap: 6px;
+    flex-wrap: wrap;
+    margin: 15px auto;
+  }
+}
+
+/* Tablet / Medium screens 769px - 1024px */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .orders-page {
+    padding: 30px 20px;
+  }
+
+  .order-card {
+    padding: 18px 20px;
+  }
+
+  .order-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* Timeline horizontal */
+  .order-timeline {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .timeline-step {
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .timeline-line {
+    display: block;
+    height: 4px;
+    width: 100%;
+  }
+
+  /* Order Items 2 per row */
+  .order-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .order-item {
+    width: calc(50% - 10px);
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .item-thumb {
+    width: 70px;
+    height: 70px;
   }
 }

@@ -34,12 +34,16 @@ const formatStatus = (status) => {
   return status.charAt(0).toUpperCase() + status.slice(1).replace(/-/g, " ");
 };
 
+const ORDERS_PER_PAGE = 6;
+
 const MyOrdersPage = () => {
   const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filter, setFilter] = useState("all");
+  const [page, setPage] = useState(1);
 
+  // Load orders from localStorage
   useEffect(() => {
     const savedOrders = JSON.parse(localStorage.getItem("ordersHistory")) || [];
     if (savedOrders.length > 0) {
@@ -47,11 +51,16 @@ const MyOrdersPage = () => {
     } else {
       const lastOrder = JSON.parse(localStorage.getItem("lastOrder"));
       if (lastOrder) {
-        lastOrder.status = "ordered"; // Force Ordered for now
+        lastOrder.status = "ordered"; // Force ordered dynamically
         setOrders([lastOrder]);
       }
     }
   }, []);
+
+  // Update localStorage whenever orders change
+  useEffect(() => {
+    localStorage.setItem("ordersHistory", JSON.stringify(orders));
+  }, [orders]);
 
   const handleInvoiceClick = (order) => {
     localStorage.setItem("lastOrder", JSON.stringify(order));
@@ -87,6 +96,14 @@ const MyOrdersPage = () => {
     return matchesSearch && matchesFilter;
   });
 
+  // Pagination logic
+  const totalPages = Math.ceil(filteredOrders.length / ORDERS_PER_PAGE);
+  const startIndex = (page - 1) * ORDERS_PER_PAGE;
+  const currentOrders = filteredOrders.slice(
+    startIndex,
+    startIndex + ORDERS_PER_PAGE
+  );
+
   if (orders.length === 0) {
     return (
       <>
@@ -117,9 +134,18 @@ const MyOrdersPage = () => {
             type="text"
             placeholder="🔍 Search by Order ID or Product"
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+              setPage(1); // reset to page 1 after search
+            }}
           />
-          <select value={filter} onChange={(e) => setFilter(e.target.value)}>
+          <select
+            value={filter}
+            onChange={(e) => {
+              setFilter(e.target.value);
+              setPage(1); // reset to page 1 after filter
+            }}
+          >
             <option value="all">All Orders</option>
             <option value="ordered">Ordered</option>
             <option value="shipped">Shipped</option>
@@ -132,9 +158,19 @@ const MyOrdersPage = () => {
 
         {/* Orders */}
         <section className="orders-list">
-          {filteredOrders.map((order) => {
-            const safeStatus = "ordered"; // Force Ordered dynamically
-            const currentIndex = 0; // First step active
+          {currentOrders.map((order) => {
+            // Dynamically show "ordered" for new/unprocessed orders
+            const safeStatus = [
+              "shipped",
+              "out-for-delivery",
+              "delivered",
+              "cancelled",
+              "returned",
+            ].includes(order.status)
+              ? order.status
+              : "ordered";
+
+            const currentIndex = ORDER_STEPS.indexOf(safeStatus);
 
             return (
               <div key={order.orderId} className="order-card">
@@ -213,7 +249,7 @@ const MyOrdersPage = () => {
 
                 {/* Items */}
                 <div className="order-items">
-                  {(order.cart || []).map((it) => (
+                  {order.cart.map((it) => (
                     <div
                       key={it.id || it.sku || Math.random()}
                       className="order-item"
@@ -306,6 +342,38 @@ const MyOrdersPage = () => {
             );
           })}
         </section>
+
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <div className="pagination">
+            <button
+              onClick={() => setPage((p) => Math.max(p - 1, 1))}
+              disabled={page === 1}
+            >
+              ◀
+            </button>
+
+            {Array.from({ length: Math.min(4, totalPages) }, (_, i) => {
+              const pageNumber = i + 1;
+              return (
+                <button
+                  key={pageNumber}
+                  onClick={() => setPage(pageNumber)}
+                  className={page === pageNumber ? "active" : ""}
+                >
+                  {pageNumber}
+                </button>
+              );
+            })}
+
+            <button
+              onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
+              disabled={page === totalPages}
+            >
+              ▶
+            </button>
+          </div>
+        )}
       </main>
     </>
   );
