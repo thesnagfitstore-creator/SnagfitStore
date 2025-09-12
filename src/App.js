@@ -22,7 +22,8 @@ import OrderSummary from "./Customer/Pages/OrderSummary";
 import Payment from "./Customer/Pages/Payment";
 import OrderSuccess from "./Customer/Pages/OrderSuccess";
 import InvoicePage from "./Customer/Pages/InvoicePage";
-import MyOrdersPage from "./Customer/Pages/MyOrdersPage"; // ✅ Import MyOrdersPage
+import MyOrdersPage from "./Customer/Pages/MyOrdersPage";
+import MyProfilePage from "./Customer/Pages/MyProfilePage";
 
 export default function App() {
   return (
@@ -39,7 +40,6 @@ export default function App() {
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/cart" element={<Cart />} /> {/* ✅ Cart Page */}
         <Route path="/order-summary" element={<OrderSummary />} />{" "}
-        {/* ✅ Added OrderSummary Page */}
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
@@ -49,7 +49,7 @@ export default function App() {
         <Route path="/order-success" element={<OrderSuccess />} />
         <Route path="/invoice" element={<InvoicePage />} />
         <Route path="/my-orders" element={<MyOrdersPage />} />{" "}
-        {/* ✅ MyOrdersPage route */}
+        <Route path="/profile" element={<MyProfilePage />} />
       </Routes>
       <Footer />
     </CartProvider>
