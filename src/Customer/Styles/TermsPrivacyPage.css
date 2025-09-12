@@ -1,0 +1,91 @@
+.terms-page {
+  padding: 80px 20px;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  background: #f7f3e3;
+  color: #0d0d0d;
+}
+
+.title {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 10px;
+  color: #441515;
+}
+
+.subtitle {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 16px;
+  color: #741c1c;
+}
+
+.policy-section {
+  background: #fff;
+  padding: 20px 25px;
+  margin-bottom: 25px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.policy-section h2 {
+  margin-bottom: 15px;
+  font-size: 22px;
+  color: #ff3131;
+}
+
+.policy-section p,
+.policy-section li {
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.policy-section ul {
+  list-style: disc;
+  padding-left: 20px;
+}
+
+.link {
+  color: #007bff;
+  text-decoration: underline;
+  transition: 0.3s;
+}
+
+.link:hover {
+  opacity: 0.8;
+}
+
+/* Back Button */
+.back-btn-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.back-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #ff3131;
+  color: #fff;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 14px;
+  transition: 0.3s ease;
+}
+
+.back-btn:hover {
+  background: #cc2525;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .title {
+    font-size: 26px;
+  }
+  .policy-section h2 {
+    font-size: 18px;
+  }
+  .policy-section p,
+  .policy-section li {
+    font-size: 13px;
+  }
+}
