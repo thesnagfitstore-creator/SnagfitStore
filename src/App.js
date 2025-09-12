@@ -1,10 +1,10 @@
-// src/App.js
 import React from "react";
 import Navbar from "./Customer/Components/Navigation/Navbar";
 import Footer from "./Customer/Components/Footer/Footer";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { CartProvider } from "./Customer/Context/CartContext";
 import { Routes, Route } from "react-router-dom";
+
 import Home from "./Customer/Pages/Home";
 import About from "./Customer/Pages/About";
 import Mens from "./Customer/Pages/Mens";
@@ -24,11 +24,11 @@ import OrderSuccess from "./Customer/Pages/OrderSuccess";
 import InvoicePage from "./Customer/Pages/InvoicePage";
 import MyOrdersPage from "./Customer/Pages/MyOrdersPage";
 import MyProfilePage from "./Customer/Pages/MyProfilePage";
+import SizeGuidePage from "./Customer/Pages/SizeGuidePage"; // ✅ Import here
 
 export default function App() {
   return (
     <CartProvider>
-      {/* ✅ Now Cart context is available to ALL components */}
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -38,8 +38,8 @@ export default function App() {
         <Route path="/unisex" element={<Unisex />} />
         <Route path="/contact" element={<ContactUS />} />
         <Route path="/wishlist" element={<Wishlist />} />
-        <Route path="/cart" element={<Cart />} /> {/* ✅ Cart Page */}
-        <Route path="/order-summary" element={<OrderSummary />} />{" "}
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/order-summary" element={<OrderSummary />} />
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
@@ -48,8 +48,9 @@ export default function App() {
         <Route path="/checkout/payment" element={<Payment />} />
         <Route path="/order-success" element={<OrderSuccess />} />
         <Route path="/invoice" element={<InvoicePage />} />
-        <Route path="/my-orders" element={<MyOrdersPage />} />{" "}
+        <Route path="/my-orders" element={<MyOrdersPage />} />
         <Route path="/profile" element={<MyProfilePage />} />
+        <Route path="/size-guide" element={<SizeGuidePage />} />{" "}
       </Routes>
       <Footer />
     </CartProvider>
