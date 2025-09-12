@@ -24,7 +24,8 @@ import OrderSuccess from "./Customer/Pages/OrderSuccess";
 import InvoicePage from "./Customer/Pages/InvoicePage";
 import MyOrdersPage from "./Customer/Pages/MyOrdersPage";
 import MyProfilePage from "./Customer/Pages/MyProfilePage";
-import SizeGuidePage from "./Customer/Pages/SizeGuidePage"; // ✅ Import here
+import SizeGuidePage from "./Customer/Pages/SizeGuidePage"; 
+import ReturnsRefunds from "./Customer/Pages/ReturnsRefunds";
 
 export default function App() {
   return (
@@ -51,6 +52,7 @@ export default function App() {
         <Route path="/my-orders" element={<MyOrdersPage />} />
         <Route path="/profile" element={<MyProfilePage />} />
         <Route path="/size-guide" element={<SizeGuidePage />} />{" "}
+        <Route path="/returns-refunds" element={<ReturnsRefunds />} />
       </Routes>
       <Footer />
     </CartProvider>
