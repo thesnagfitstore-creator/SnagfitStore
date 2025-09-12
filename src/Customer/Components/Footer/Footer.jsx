@@ -1,5 +1,5 @@
 import React from "react";
-import { FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
+import { FaInstagram, FaWhatsapp, FaYoutube } from "react-icons/fa";
 // import paymentImg from "../../assets/payments.png";
 
 const Footer = () => {
@@ -25,14 +25,14 @@ const Footer = () => {
             <p className="mb-2">
               <strong>Phone:</strong>{" "}
               <a href="tel:+917351040985" className="hover:text-red-600">
-                +91 7351040985
+                +91 6398947324
               </a>
             </p>
             <p className="mb-4">
               <strong>Hours:</strong> 24/7 Support
             </p>
-
             <h5 className="text-lg font-semibold mb-2">Follow Us</h5>
+
             <div className="flex space-x-4 text-xl">
               <a
                 href="https://www.instagram.com/thesnagfit?igsh=eG1peWpsdjg3cDN1"
@@ -42,14 +42,7 @@ const Footer = () => {
               >
                 <FaInstagram />
               </a>
-              <a
-                href="https://twitter.com/"
-                target="_blank"
-                rel="noreferrer"
-                className="hover:text-red-600"
-              >
-                <FaTwitter />
-              </a>
+
               <a
                 href="https://youtube.com/"
                 target="_blank"
@@ -57,6 +50,15 @@ const Footer = () => {
                 className="hover:text-red-600"
               >
                 <FaYoutube />
+              </a>
+
+              <a
+                href="https://wa.me/916398947324"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-red-600"
+              >
+                <FaWhatsapp />
               </a>
             </div>
           </div>
@@ -73,11 +75,6 @@ const Footer = () => {
               <li>
                 <a href="/delivery" className="hover:text-red-600">
                   Delivery Information
-                </a>
-              </li>
-              <li>
-                <a href="/privacy" className="hover:text-red-600">
-                  Privacy Policy
                 </a>
               </li>
               <li>
